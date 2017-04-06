@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="opuslib-1.0.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/15aecb3e90d0762186564c8773347e9087a7756d/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/15aecb3e90d0762186564c8773347e9087a7756d/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/top.oply.opuslib/opuslib/1.0.2/94d82a4c90878970d9c92e9fb193d3ab215fcd81/opuslib-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
