@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import aw.com.utils.FileUtilities;
+import top.oply.opuslib.OpusPlayer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,11 +17,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        copySampleFiles(); 
+        copySampleFiles();
+
+
+
+
     }
 
     private void copySampleFiles() {
-        // we have 2 sample files here, we will copy those sample into local, because that's currently the only way for OpusLib play it
+        // we have 2 sample files here, we will copy those sample into local, because that's currently the only way for OpusLib to play it
 
         String sample1Path = Environment.getExternalStorageDirectory()+"/OpusPlayer/sample1.opus";
         File file1 = new File(sample1Path);
