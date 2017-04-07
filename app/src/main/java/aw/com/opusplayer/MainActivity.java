@@ -4,6 +4,7 @@ import android.content.IntentFilter;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,11 +25,20 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton playPauseButton;
     OpusPlayer opusPlayer;
+    OpusPlayerState playerState;
+
+    public enum OpusPlayerState {
+        NONE,
+        PLAYING,
+        PAUSED,
+        FINISHED
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        playerState = OpusPlayerState.NONE;
 
         copySampleFiles();
         initOpusPlayer();
@@ -41,7 +51,19 @@ public class MainActivity extends AppCompatActivity {
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                opusPlayer.play(Environment.getExternalStorageDirectory()+"/OpusPlayer/sample2.opus");
+                switch (playerState) {
+                    case NONE:
+                        opusPlayer.play(Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus");
+                        break;
+                    case PLAYING:
+                        opusPlayer.pause();
+                        break;
+                    case PAUSED:
+                        opusPlayer.resume();
+                        break;
+                    case FINISHED:
+                        break;
+                }
             }
         });
     }
@@ -84,9 +106,15 @@ public class MainActivity extends AppCompatActivity {
         switch (event.getOpusEventCode()) {
             case OpusEvent.PLAYING_STARTED :
                 playPauseButton.setImageResource(R.drawable.pause);
+                playerState = OpusPlayerState.PLAYING;
                 break;
             case OpusEvent.PLAYING_FINISHED :
                 playPauseButton.setImageResource(R.drawable.play);
+                playerState = OpusPlayerState.FINISHED;
+                break;
+            case OpusEvent.PLAYING_PAUSED :
+                playPauseButton.setImageResource(R.drawable.play);
+                playerState = OpusPlayerState.PAUSED;
                 break;
         }
     }
