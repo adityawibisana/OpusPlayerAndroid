@@ -7,13 +7,12 @@
     tools:context="aw.com.opusplayer.MainActivity">
 
     <ImageButton
-        android:id="@+id/fab"
+        android:id="@+id/playPauseButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:padding="11dp"
         android:scaleType="fitCenter"
         android:layout_gravity="bottom|right"
-        android:stateListAnimator="@anim/anim"
         android:background="@drawable/round_button"
         android:src="@drawable/play"
         android:layout_marginLeft="12dp"

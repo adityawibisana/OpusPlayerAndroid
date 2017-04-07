@@ -3,6 +3,9 @@ package aw.com.opusplayer;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +15,9 @@ import top.oply.opuslib.OpusPlayer;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImageButton playPauseButton;
+    OpusPlayer opusPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,9 +25,20 @@ public class MainActivity extends AppCompatActivity {
 
         copySampleFiles();
 
+        opusPlayer = OpusPlayer.getInstance();
 
 
+        InitUI();
+    }
 
+    private void InitUI() {
+        playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
+        playPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opusPlayer.play(Environment.getExternalStorageDirectory()+"/OpusPlayer/sample2.opus");
+            }
+        });
     }
 
     private void copySampleFiles() {
