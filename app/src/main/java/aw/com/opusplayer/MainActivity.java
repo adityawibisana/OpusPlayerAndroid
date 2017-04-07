@@ -1,16 +1,23 @@
 package aw.com.opusplayer;
 
+import android.content.IntentFilter;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
 
+import aw.com.events.OpusMessageEvent;
 import aw.com.utils.FileUtilities;
+import top.oply.opuslib.OpusEvent;
 import top.oply.opuslib.OpusPlayer;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,11 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         copySampleFiles();
-
-        opusPlayer = OpusPlayer.getInstance();
-
-
+        initOpusPlayer();
         InitUI();
+        EventBus.getDefault().register(this);
     }
 
     private void InitUI() {
@@ -39,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
                 opusPlayer.play(Environment.getExternalStorageDirectory()+"/OpusPlayer/sample2.opus");
             }
         });
+    }
+
+    private void initOpusPlayer() {
+        opusPlayer = OpusPlayer.getInstance();
+        opusPlayer.setEventSender(new OpusEvent(this));
+        OpusReceiver receiver = new OpusReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(OpusEvent.ACTION_OPUS_UI_RECEIVER);
+        registerReceiver(receiver, filter);
     }
 
     private void copySampleFiles() {
@@ -62,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnOpusEvent(OpusMessageEvent event) {
+        switch (event.getOpusEventCode()) {
+            case OpusEvent.PLAYING_STARTED :
+                playPauseButton.setImageResource(R.drawable.pause);
+                break;
         }
     }
 
