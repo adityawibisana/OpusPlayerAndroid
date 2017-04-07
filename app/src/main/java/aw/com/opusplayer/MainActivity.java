@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
             case OpusEvent.PLAYING_STARTED :
                 playPauseButton.setImageResource(R.drawable.pause);
                 break;
+            case OpusEvent.PLAYING_FINISHED :
+                playPauseButton.setImageResource(R.drawable.play);
+                break;
         }
     }
 
