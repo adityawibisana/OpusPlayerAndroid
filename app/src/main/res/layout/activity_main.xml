@@ -20,4 +20,15 @@
         android:layout_marginBottom="@dimen/margin_size"
         android:layout_centerHorizontal="true"/>
 
+    <ProgressBar
+        android:id="@+id/playerProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_marginLeft="@dimen/margin_size"
+        android:layout_marginRight="@dimen/margin_size"
+        android:layout_marginBottom="@dimen/margin_size"
+        android:layout_above="@id/playPauseButton"
+        />
+
 </RelativeLayout>
