@@ -8,6 +8,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -24,6 +25,8 @@ import top.oply.opuslib.OpusPlayer;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton playPauseButton;
+    ProgressBar progressBar;
+
     OpusPlayer opusPlayer;
     OpusPlayerState playerState;
 
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        progressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
     }
 
     private void initOpusPlayer() {
@@ -116,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
                 playPauseButton.setImageResource(R.drawable.play);
                 playerState = OpusPlayerState.PAUSED;
                 break;
+            case OpusEvent.PLAY_PROGRESS_UPDATE :
+                double progress = (double) opusPlayer.getPosition()/opusPlayer.getDuration() * 100 ;
+                progressBar.setProgress((int)progress);
         }
     }
 
