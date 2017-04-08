@@ -23,8 +23,6 @@ import aw.com.utils.FileUtilities;
 import top.oply.opuslib.OpusEvent;
 import top.oply.opuslib.OpusPlayer;
 
-import static aw.com.opusplayer.R.id.durationText;
-
 public class MainActivity extends AppCompatActivity {
 
     ImageButton playPauseButton;
@@ -98,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void copySampleFiles() {
         // we have 2 sample files here, we will copy those sample into local, because that's currently the only way for OpusLib to play it
-
         String sample1Path = Environment.getExternalStorageDirectory() + "/OpusPlayer/sample1.opus";
         File file1 = new File(sample1Path);
         if (!file1.exists()) {
