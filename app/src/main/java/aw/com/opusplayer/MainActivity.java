@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton playPauseButton;
     ProgressBar progressBar;
     TextView durationText;
+    TextView currentPositionText;
 
     OpusPlayer opusPlayer;
     OpusPlayerState playerState;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void InitUI() {
         durationText = (TextView) findViewById(R.id.durationText);
+        currentPositionText = (TextView) findViewById(R.id.currentPositionText);
 
         playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
         playPauseButton.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             case OpusEvent.PLAY_PROGRESS_UPDATE:
                 double progress = (double) opusPlayer.getPosition() / opusPlayer.getDuration() * 100;
                 progressBar.setProgress((int) progress);
+                currentPositionText.setText(Converters.convertNumberToTimeDisplay((int) opusPlayer.getPosition()));
         }
     }
 
