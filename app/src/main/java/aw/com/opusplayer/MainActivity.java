@@ -1,11 +1,9 @@
 package aw.com.opusplayer;
 
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -92,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
     private void copySampleFiles() {
         // we have 2 sample files here, we will copy those sample into local, because that's currently the only way for OpusLib to play it
 
-        String sample1Path = Environment.getExternalStorageDirectory()+"/OpusPlayer/sample1.opus";
+        String sample1Path = Environment.getExternalStorageDirectory() + "/OpusPlayer/sample1.opus";
         File file1 = new File(sample1Path);
-        if(!file1.exists()) {
+        if (!file1.exists()) {
             try {
                 FileUtilities.copyRAWtoSDCard(this, R.raw.sample1, sample1Path);
             } catch (IOException e) {
@@ -102,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        String sample2Path = Environment.getExternalStorageDirectory()+"/OpusPlayer/sample2.opus";
+        String sample2Path = Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus";
         File file2 = new File(sample2Path);
-        if(!file2.exists()) {
+        if (!file2.exists()) {
             try {
                 FileUtilities.copyRAWtoSDCard(this, R.raw.sample2, sample2Path);
             } catch (IOException e) {
@@ -116,21 +114,21 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void OnOpusEvent(OpusMessageEvent event) {
         switch (event.getOpusEventCode()) {
-            case OpusEvent.PLAYING_STARTED :
+            case OpusEvent.PLAYING_STARTED:
                 playPauseButton.setImageResource(R.drawable.pause);
                 playerState = OpusPlayerState.PLAYING;
                 break;
-            case OpusEvent.PLAYING_FINISHED :
+            case OpusEvent.PLAYING_FINISHED:
                 playPauseButton.setImageResource(R.drawable.play);
                 playerState = OpusPlayerState.FINISHED;
                 break;
-            case OpusEvent.PLAYING_PAUSED :
+            case OpusEvent.PLAYING_PAUSED:
                 playPauseButton.setImageResource(R.drawable.play);
                 playerState = OpusPlayerState.PAUSED;
                 break;
-            case OpusEvent.PLAY_PROGRESS_UPDATE :
-                double progress = (double) opusPlayer.getPosition()/opusPlayer.getDuration() * 100 ;
-                progressBar.setProgress((int)progress);
+            case OpusEvent.PLAY_PROGRESS_UPDATE:
+                double progress = (double) opusPlayer.getPosition() / opusPlayer.getDuration() * 100;
+                progressBar.setProgress((int) progress);
         }
     }
 
