@@ -20,15 +20,38 @@
         android:layout_marginBottom="@dimen/margin_size"
         android:layout_centerHorizontal="true"/>
 
-    <ProgressBar
-        android:id="@+id/playerProgressBar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:attr/progressBarStyleHorizontal"
         android:layout_marginLeft="@dimen/margin_size"
         android:layout_marginRight="@dimen/margin_size"
         android:layout_marginBottom="@dimen/margin_size"
-        android:layout_above="@id/playPauseButton"
-        />
+        android:layout_above="@id/playPauseButton">
 
+        <TextView
+            android:id="@+id/currentPositionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_marginRight="6dp"
+            android:text="00:00"
+            android:minEms="2"/>
+
+        <ProgressBar
+            android:id="@+id/playerProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/progressBarStyleHorizontal" />
+
+        <TextView
+            android:id="@+id/durationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_marginLeft="6dp"
+            android:text="00:00"
+            android:minEms="2" />
+    </LinearLayout>
+    
 </RelativeLayout>
