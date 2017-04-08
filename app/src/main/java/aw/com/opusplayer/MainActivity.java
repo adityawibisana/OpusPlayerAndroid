@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView durationText;
     TextView currentPositionText;
+    ListView playList;
 
     OpusPlayer opusPlayer;
     OpusPlayerState playerState;
@@ -83,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Jump on the specific duration is not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
+
+        playList = (ListView) findViewById(R.id.playList);
     }
 
     private void initOpusPlayer() {

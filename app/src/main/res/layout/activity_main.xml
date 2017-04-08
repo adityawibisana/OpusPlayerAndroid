@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context="aw.com.opusplayer.MainActivity">
 
+    <ListView
+        android:id="@+id/playList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_size"
+        tools:listitem="@layout/list_opus_file" />
+
     <ImageButton
         android:id="@+id/playPauseButton"
         android:layout_width="72dp"
