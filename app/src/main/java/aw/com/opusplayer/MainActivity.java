@@ -17,7 +17,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import aw.com.adapters.PlayListAdapter;
 import aw.com.events.OpusMessageEvent;
 import aw.com.utils.Converters;
 import aw.com.utils.FileUtilities;
@@ -87,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         playList = (ListView) findViewById(R.id.playList);
+        List<String> playLists = new ArrayList<String>();
+        for (int i=0;i<200;i++) {
+            playLists.add("List "+i);
+        }
+        PlayListAdapter playListAdapter = new PlayListAdapter(this.getBaseContext(), playLists);
+        playList.setAdapter(playListAdapter);
     }
 
     private void initOpusPlayer() {
