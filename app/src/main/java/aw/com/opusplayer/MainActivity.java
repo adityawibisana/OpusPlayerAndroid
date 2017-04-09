@@ -1,6 +1,5 @@
 package aw.com.opusplayer;
 
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +16,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.io.IOException;
 
-import aw.com.events.OpusMessageEvent;
+import aw.com.controllers.OpusController;
+import aw.com.events.OpusControllerEvent;
 import aw.com.utils.Converters;
 import aw.com.utils.FileUtilities;
 import top.oply.opuslib.OpusEvent;
-import top.oply.opuslib.OpusPlayer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,24 +29,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView durationText;
     private TextView currentPositionText;
 
-    OpusPlayer opusPlayer;
-    OpusPlayerState playerState;
+    private OpusController opusController;
 
-    public enum OpusPlayerState {
-        NONE,
-        PLAYING,
-        PAUSED,
-        FINISHED
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        playerState = OpusPlayerState.NONE;
+
+        opusController = new OpusController(this);
 
         copySampleFiles();
-        initOpusPlayer();
         InitUI();
         EventBus.getDefault().register(this);
     }
@@ -64,15 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Jump on the specific duration is not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void initOpusPlayer() {
-        opusPlayer = OpusPlayer.getInstance();
-        opusPlayer.setEventSender(new OpusEvent(this));
-        OpusReceiver receiver = new OpusReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(OpusEvent.ACTION_OPUS_UI_RECEIVER);
-        registerReceiver(receiver, filter);
     }
 
     private void copySampleFiles() {
@@ -99,46 +82,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnOpusEvent(OpusMessageEvent event) {
+    public void OnOpusControllerEvent(OpusControllerEvent event) {
         switch (event.getOpusEventCode()) {
 
             case OpusEvent.PLAYING_STARTED: {
                 playPauseButton.setImageResource(R.drawable.pause);
-                playerState = OpusPlayerState.PLAYING;
-                durationText.setText(Converters.convertNumberToTimeDisplay((int) opusPlayer.getDuration()));
+                durationText.setText(Converters.convertNumberToTimeDisplay(opusController.getProgressPercentage()));
                 break;
             }
             case OpusEvent.PLAYING_FINISHED: {
                 playPauseButton.setImageResource(R.drawable.play);
-                playerState = OpusPlayerState.FINISHED;
                 break;
             }
             case OpusEvent.PLAYING_PAUSED: {
                 playPauseButton.setImageResource(R.drawable.play);
-                playerState = OpusPlayerState.PAUSED;
                 break;
             }
             case OpusEvent.PLAY_PROGRESS_UPDATE: {
-                double progress = (double) opusPlayer.getPosition() / opusPlayer.getDuration() * 100;
-                progressBar.setProgress((int) progress);
-                currentPositionText.setText(Converters.convertNumberToTimeDisplay((int) opusPlayer.getPosition()));
+                progressBar.setProgress(opusController.getProgressPercentage());
+                currentPositionText.setText(Converters.convertNumberToTimeDisplay((int) opusController.getPlayer().getPosition()));
                 break;
             }
         }
     }
 
     public void onPlayPauseClick(View v) {
-        switch (playerState) {
+        switch (opusController.getPlayerState()) {
             case NONE: {
-                opusPlayer.play(Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus");
+                opusController.getPlayer().play(Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus");
                 break;
             }
             case PLAYING: {
-                opusPlayer.pause();
+                opusController.getPlayer().pause();
                 break;
             }
             case PAUSED: {
-                opusPlayer.resume();
+                opusController.getPlayer().resume();
                 break;
             }
             case FINISHED: {
