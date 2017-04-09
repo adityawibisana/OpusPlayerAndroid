@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnOpusEvent(OpusControllerEvent event) {
+    public void OnOpusControllerEvent(OpusControllerEvent event) {
         switch (event.getOpusEventCode()) {
 
             case OpusEvent.PLAYING_STARTED: {

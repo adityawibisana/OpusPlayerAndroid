@@ -55,7 +55,7 @@ public class OpusController {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnOpusEvent(OpusMessageEvent event) {
+    public void OnOpusMessageEvent(OpusMessageEvent event) {
         switch (event.getOpusEventCode()) {
             case OpusEvent.PLAYING_STARTED: {
                 playerState = OpusPlayerState.PLAYING;
