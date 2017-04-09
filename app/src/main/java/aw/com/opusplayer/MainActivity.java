@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPlayPauseClick(View v) {
         switch (opusController.getPlayerState()) {
             case NONE: {
-                opusController.getPlayer().play(Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus");
+                opusController.getPlayer().play(Environment.getExternalStorageDirectory() + getString(R.string.opus_sample2_path));
                 break;
             }
             case PLAYING: {
