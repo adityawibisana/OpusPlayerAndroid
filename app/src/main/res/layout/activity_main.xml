@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:layout_marginRight="6dp"
+            android:layout_marginRight="@dimen/margin_small_size"
             android:text="00:00"
             android:minEms="2"/>
 
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:layout_marginLeft="6dp"
+            android:layout_marginLeft="@dimen/margin_small_size"
             android:text="00:00"
             android:minEms="2" />
     </LinearLayout>
