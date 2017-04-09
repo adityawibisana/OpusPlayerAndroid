@@ -60,18 +60,23 @@ public class MainActivity extends AppCompatActivity {
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 switch (playerState) {
-                    case NONE:
+                    case NONE: {
                         opusPlayer.play(Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus");
                         break;
-                    case PLAYING:
+                    }
+                    case PLAYING: {
                         opusPlayer.pause();
                         break;
-                    case PAUSED:
+                    }
+                    case PAUSED: {
                         opusPlayer.resume();
                         break;
-                    case FINISHED:
+                    }
+                    case FINISHED: {
                         break;
+                    }
                 }
             }
         });
@@ -120,23 +125,29 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void OnOpusEvent(OpusMessageEvent event) {
         switch (event.getOpusEventCode()) {
-            case OpusEvent.PLAYING_STARTED:
+
+            case OpusEvent.PLAYING_STARTED: {
                 playPauseButton.setImageResource(R.drawable.pause);
                 playerState = OpusPlayerState.PLAYING;
                 durationText.setText(Converters.convertNumberToTimeDisplay((int) opusPlayer.getDuration()));
                 break;
-            case OpusEvent.PLAYING_FINISHED:
+            }
+            case OpusEvent.PLAYING_FINISHED: {
                 playPauseButton.setImageResource(R.drawable.play);
                 playerState = OpusPlayerState.FINISHED;
                 break;
-            case OpusEvent.PLAYING_PAUSED:
+            }
+            case OpusEvent.PLAYING_PAUSED: {
                 playPauseButton.setImageResource(R.drawable.play);
                 playerState = OpusPlayerState.PAUSED;
                 break;
-            case OpusEvent.PLAY_PROGRESS_UPDATE:
+            }
+            case OpusEvent.PLAY_PROGRESS_UPDATE: {
                 double progress = (double) opusPlayer.getPosition() / opusPlayer.getDuration() * 100;
                 progressBar.setProgress((int) progress);
                 currentPositionText.setText(Converters.convertNumberToTimeDisplay((int) opusPlayer.getPosition()));
+                break;
+            }
         }
     }
 
