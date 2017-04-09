@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context="aw.com.opusplayer.MainActivity">
 
+
     <ListView
         android:id="@+id/playList"
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:layout_marginRight="6dp"
+            android:layout_marginRight="@dimen/margin_small_size"
             android:text="00:00"
             android:minEms="2"/>
 
@@ -44,24 +45,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:layout_marginLeft="6dp"
+            android:layout_marginLeft="@dimen/margin_small_size"
             android:text="00:00"
             android:minEms="2" />
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/playPauseButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/button_huge_size"
+        android:layout_height="@dimen/button_huge_size"
         android:padding="11dp"
         android:scaleType="fitCenter"
         android:layout_gravity="bottom|center"
         android:background="@drawable/round_button"
         android:src="@drawable/play"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="@dimen/margin_size"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/margin_size"
-        android:layout_centerHorizontal="true" />
-
-
+        android:layout_centerHorizontal="true"
+        android:onClick="onPlayPauseClick" />
     
 </LinearLayout>

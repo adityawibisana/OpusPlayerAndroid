@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">OpusPlayer</string>
+    <string name="opus_sample1_path">/OpusPlayer/sample1.opus</string>
+    <string name="opus_sample2_path">/OpusPlayer/sample2.opus</string>
 </resources>
