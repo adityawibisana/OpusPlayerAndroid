@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             case OpusEvent.PLAYING_STARTED: {
                 playPauseButton.setImageResource(R.drawable.pause);
-                durationText.setText(Converters.convertNumberToTimeDisplay(opusController.getProgressPercentage()));
+                durationText.setText(opusController.getDisplayedDuration());
                 break;
             }
             case OpusEvent.PLAYING_FINISHED: {

@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import aw.com.events.OpusControllerEvent;
 import aw.com.events.OpusMessageEvent;
 import aw.com.opusplayer.OpusReceiver;
+import aw.com.utils.Converters;
 import top.oply.opuslib.OpusEvent;
 import top.oply.opuslib.OpusPlayer;
 
@@ -21,6 +22,8 @@ public class OpusController {
     private OpusPlayer opusPlayer;
     private OpusPlayerState playerState;
     private int progressPercentage;
+    private String displayedDuration;
+    private String displayedProgress;
 
     public OpusPlayer getPlayer() {
         return opusPlayer;
@@ -32,6 +35,10 @@ public class OpusController {
 
     public int getProgressPercentage() {
         return progressPercentage;
+    }
+
+    public String getDisplayedDuration() {
+        return displayedDuration;
     }
 
     public enum OpusPlayerState {
@@ -59,6 +66,7 @@ public class OpusController {
         switch (event.getOpusEventCode()) {
             case OpusEvent.PLAYING_STARTED: {
                 playerState = OpusPlayerState.PLAYING;
+                displayedDuration = Converters.convertNumberToTimeDisplay((int)opusPlayer.getDuration());
                 break;
             }
             case OpusEvent.PLAYING_FINISHED: {
