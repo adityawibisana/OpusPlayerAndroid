@@ -25,6 +25,7 @@ public class OpusController {
     private int progressPercentage;
     private String displayedDuration;
     private String displayedProgress;
+    private String lastPlayedFile;
 
     public OpusPlayer getPlayer() {
         return opusPlayer;
@@ -44,6 +45,10 @@ public class OpusController {
 
     public String getDisplayedProgress() {
         return displayedProgress;
+    }
+
+    public String getLastPlayedFile() {
+        return lastPlayedFile;
     }
 
     public enum OpusPlayerState {
@@ -98,6 +103,7 @@ public class OpusController {
     public void OnPlaylistClickedEvent(PlaylistClickedEvent event) {
         if (event.getSelectedFilePath()!=null) {
             getPlayer().toggle(event.getSelectedFilePath());
+            lastPlayedFile = event.getSelectedFilePath();
         }
     }
 }

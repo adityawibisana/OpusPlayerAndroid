@@ -138,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
                 opusController.getPlayer().resume();
                 break;
             }
-            case FINISHED: { 
+            case FINISHED: {
+                opusController.getPlayer().play(opusController.getLastPlayedFile());
                 break;
             }
         }
