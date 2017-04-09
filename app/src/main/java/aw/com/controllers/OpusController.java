@@ -70,7 +70,7 @@ public class OpusController {
                 break;
             }
             case OpusEvent.PLAY_PROGRESS_UPDATE: {
-                progressPercentage = (int) (opusPlayer.getPosition() / opusPlayer.getDuration() * 100);
+                progressPercentage = (int) ((double) opusPlayer.getPosition() / opusPlayer.getDuration() * 100);
                 break;
             }
         }
