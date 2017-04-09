@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +18,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.io.IOException;
 
+import aw.com.adapters.PlayListAdapter;
 import aw.com.controllers.OpusController;
+import aw.com.controllers.OpusFileScanner;
 import aw.com.events.OpusControllerEvent;
+import aw.com.events.OpusFileFoundEvent;
 import aw.com.utils.FileUtilities;
 import top.oply.opuslib.OpusEvent;
 
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView durationText;
     private TextView currentPositionText;
+    private ListView playList;
 
     private OpusController opusController;
 
@@ -41,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         copySampleFiles();
         InitUI();
         EventBus.getDefault().register(this);
+
+        OpusFileScanner scanner = new OpusFileScanner();
+        scanner.start();
     }
 
     private void InitUI() {
@@ -55,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Jump on the specific duration is not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
+
+        playList = (ListView) findViewById(R.id.playList);
+        playList.setAdapter(new PlayListAdapter(this));
     }
 
     private void copySampleFiles() {
@@ -123,5 +135,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnOpusFileFoundEvent(OpusFileFoundEvent event)
+    {
+        ((BaseAdapter) playList.getAdapter()).notifyDataSetChanged();
     }
 }

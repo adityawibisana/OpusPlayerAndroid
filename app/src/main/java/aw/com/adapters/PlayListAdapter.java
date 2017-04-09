@@ -7,8 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import aw.com.events.OpusFileFoundEvent;
 import aw.com.opusplayer.R;
 
 /**
@@ -20,10 +26,11 @@ public class PlayListAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     private List<String> playList;
 
-    public PlayListAdapter(Context context, List<String> playList) {
+    public PlayListAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(this.context);
-        this.playList = playList;
+        playList = new ArrayList<>();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -69,5 +76,11 @@ public class PlayListAdapter extends BaseAdapter {
         public ViewHolder(View item) {
             fileNameTextView = (TextView) item.findViewById(R.id.title);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnOpusFileFoundEvent(OpusFileFoundEvent event)
+    {
+        playList.add(event.getOpusFile().getPath());
     }
 }
