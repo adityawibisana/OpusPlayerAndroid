@@ -137,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void onScanClick(View v) {
+
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void OnOpusFileFoundEvent(OpusFileFoundEvent event)
     {

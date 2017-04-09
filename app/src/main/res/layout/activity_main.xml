@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context="aw.com.opusplayer.MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_size"
+        android:layout_marginTop="@dimen/margin_size"
+        android:textColor="@color/white"
+        android:background="@color/colorAccent"
+        android:text="Scan for .opus file"
+        android:padding="@dimen/margin_small_size"
+        android:onClick="onScanClick"/>
+
 
     <ListView
         android:id="@+id/playList"
