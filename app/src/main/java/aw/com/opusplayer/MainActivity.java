@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         switch (opusController.getPlayerState()) {
             case NONE: {
                 opusController.getPlayer().play(Environment.getExternalStorageDirectory() + getString(R.string.opus_sample2_path));
+                Toast.makeText(getApplicationContext(), getString(R.string.playing_default_file), Toast.LENGTH_SHORT).show();
                 break;
             }
             case PLAYING: {
