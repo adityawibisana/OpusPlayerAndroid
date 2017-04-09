@@ -13,7 +13,7 @@
         android:layout_marginLeft="@dimen/margin_size"
         android:layout_marginTop="@dimen/margin_size"
         android:textColor="@color/white"
-        android:background="@color/colorAccent"
+        android:background="@drawable/button"
         android:text="Scan for .opus file"
         android:padding="@dimen/margin_small_size"
         android:onClick="onScanClick"/>
