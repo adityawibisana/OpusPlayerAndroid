@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="aw.com.opusplayer.MainActivity">
 
-    <ImageButton
-        android:id="@+id/playPauseButton"
-        android:layout_width="@dimen/button_huge_size"
-        android:layout_height="@dimen/button_huge_size"
-        android:padding="11dp"
-        android:scaleType="fitCenter"
-        android:layout_gravity="bottom|right"
-        android:background="@drawable/round_button"
-        android:src="@drawable/play"
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_size"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_size"
-        android:layout_centerHorizontal="true"
-        android:onClick="onPlayPauseClick" />
+        android:layout_marginTop="@dimen/margin_size"
+        android:textColor="@color/white"
+        android:background="@drawable/button"
+        android:text="Scan for .opus file"
+        android:padding="@dimen/margin_small_size"
+        android:onClick="onScanClick"/>
+
+
+    <ListView
+        android:id="@+id/playList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_size"
+        android:layout_weight="1" 
+        tools:listitem="@layout/list_opus_file" />
 
     <LinearLayout
+        android:id="@+id/indicatorContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_size"
         android:layout_marginRight="@dimen/margin_size"
-        android:layout_marginBottom="@dimen/margin_size"
-        android:layout_above="@id/playPauseButton">
+        android:layout_marginBottom="@dimen/margin_size" >
 
         <TextView
             android:id="@+id/currentPositionText"
@@ -54,5 +60,20 @@
             android:text="00:00"
             android:minEms="2" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/playPauseButton"
+        android:layout_width="@dimen/button_huge_size"
+        android:layout_height="@dimen/button_huge_size"
+        android:padding="11dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/round_button"
+        android:src="@drawable/play"
+        android:layout_marginLeft="@dimen/margin_size"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_size"
+        android:layout_centerHorizontal="true"
+        android:onClick="onPlayPauseClick" />
     
-</RelativeLayout>
+</LinearLayout>
