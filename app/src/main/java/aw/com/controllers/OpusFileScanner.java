@@ -29,7 +29,7 @@ public class OpusFileScanner extends Thread {
                     if (listFile[i].getName().toLowerCase().endsWith(".opus")){
 
                         OpusFileFoundEvent offe = new OpusFileFoundEvent();
-                        offe.setOpusFile(dir);
+                        offe.setOpusFile(listFile[i]);
                         EventBus.getDefault().post(offe);
                     }
                 }

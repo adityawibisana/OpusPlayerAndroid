@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +25,12 @@ import aw.com.opusplayer.R;
 public class PlayListAdapter extends BaseAdapter {
     private final Context context;
     private final LayoutInflater inflater;
-    private List<String> playList;
+    private List<File> playList;
 
     public PlayListAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(this.context);
-        playList = new ArrayList<>();
+        playList = new ArrayList<File>();
         EventBus.getDefault().register(this);
     }
 
@@ -66,7 +67,7 @@ public class PlayListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.fileNameTextView.setText(playList.get(position));
+        holder.fileNameTextView.setText(playList.get(position).getName());
         return convertView;
     }
 
@@ -81,6 +82,6 @@ public class PlayListAdapter extends BaseAdapter {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void OnOpusFileFoundEvent(OpusFileFoundEvent event)
     {
-        playList.add(event.getOpusFile().getPath());
+        playList.add(event.getOpusFile());
     }
 }
