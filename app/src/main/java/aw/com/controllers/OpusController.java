@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import aw.com.events.OpusControllerEvent;
 import aw.com.events.OpusMessageEvent;
+import aw.com.events.PlaylistClickedEvent;
 import aw.com.opusplayer.OpusReceiver;
 import aw.com.utils.Converters;
 import top.oply.opuslib.OpusEvent;
@@ -91,6 +92,12 @@ public class OpusController {
         OpusControllerEvent oce = new OpusControllerEvent();
         oce.setOpusEventCode(event.getOpusEventCode());
         EventBus.getDefault().post(oce);
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnPlaylistClickedEvent(PlaylistClickedEvent event) {
+        if (event.getSelectedFilePath()!=null) {
+            getPlayer().toggle(event.getSelectedFilePath());
+        }
     }
 }

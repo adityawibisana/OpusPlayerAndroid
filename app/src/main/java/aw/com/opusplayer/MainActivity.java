@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -23,6 +24,7 @@ import aw.com.controllers.OpusController;
 import aw.com.controllers.OpusFileScanner;
 import aw.com.events.OpusControllerEvent;
 import aw.com.events.OpusFileFoundEvent;
+import aw.com.events.PlaylistClickedEvent;
 import aw.com.utils.FileUtilities;
 import top.oply.opuslib.OpusEvent;
 
@@ -63,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         playList = (ListView) findViewById(R.id.playList);
+        playList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                PlaylistClickedEvent playlistClickedEvent = new PlaylistClickedEvent();
+                playlistClickedEvent.setSelectedFilePath(String.valueOf(adapter.getItemAtPosition(position)));
+                EventBus.getDefault().post(playlistClickedEvent);
+            }
+        });
     }
 
     private void copySampleFiles() {
