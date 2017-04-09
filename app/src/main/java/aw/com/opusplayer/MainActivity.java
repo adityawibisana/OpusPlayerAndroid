@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void copySampleFiles() {
         // we have 2 sample files here, we will copy those sample into local, because that's currently the only way for OpusLib to play it
-        String sample1Path = Environment.getExternalStorageDirectory() + "/OpusPlayer/sample1.opus";
+        String sample1Path = Environment.getExternalStorageDirectory() + getString(R.string.opus_sample1_path);
         File file1 = new File(sample1Path);
         if (!file1.exists()) {
             try {
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        String sample2Path = Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus";
+        String sample2Path = Environment.getExternalStorageDirectory() + getString(R.string.opus_sample2_path);
         File file2 = new File(sample2Path);
         if (!file2.exists()) {
             try {
@@ -146,6 +146,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }
