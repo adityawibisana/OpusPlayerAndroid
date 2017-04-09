@@ -1,12 +1,15 @@
 package aw.com.controllers;
 
+import android.content.Context;
+import android.content.IntentFilter;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import aw.com.events.OpusControllerEvent;
 import aw.com.events.OpusMessageEvent;
-import aw.com.opusplayer.R;
+import aw.com.opusplayer.OpusReceiver;
 import top.oply.opuslib.OpusEvent;
 import top.oply.opuslib.OpusPlayer;
 
@@ -38,9 +41,15 @@ public class OpusController {
         FINISHED
     }
 
-    public OpusController() {
+    public OpusController(Context context) {
         opusPlayer = OpusPlayer.getInstance();
         playerState = OpusPlayerState.NONE;
+
+        opusPlayer.setEventSender(new OpusEvent(context));
+        OpusReceiver receiver = new OpusReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(OpusEvent.ACTION_OPUS_UI_RECEIVER);
+        context.registerReceiver(receiver, filter);
 
         EventBus.getDefault().register(this);
     }

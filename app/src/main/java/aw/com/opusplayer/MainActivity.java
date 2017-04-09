@@ -1,6 +1,5 @@
 package aw.com.opusplayer;
 
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +18,9 @@ import java.io.IOException;
 
 import aw.com.controllers.OpusController;
 import aw.com.events.OpusControllerEvent;
-import aw.com.events.OpusMessageEvent;
 import aw.com.utils.Converters;
 import aw.com.utils.FileUtilities;
 import top.oply.opuslib.OpusEvent;
-import top.oply.opuslib.OpusPlayer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,10 +37,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        opusController = new OpusController();
+        opusController = new OpusController(this);
 
         copySampleFiles();
-        initOpusPlayer();
         InitUI();
         EventBus.getDefault().register(this);
     }
@@ -60,14 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Jump on the specific duration is not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void initOpusPlayer() {
-        opusController.getPlayer().setEventSender(new OpusEvent(this));
-        OpusReceiver receiver = new OpusReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(OpusEvent.ACTION_OPUS_UI_RECEIVER);
-        registerReceiver(receiver, filter);
     }
 
     private void copySampleFiles() {
