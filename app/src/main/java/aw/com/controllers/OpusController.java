@@ -41,6 +41,10 @@ public class OpusController {
         return displayedDuration;
     }
 
+    public String getDisplayedProgress() {
+        return displayedProgress;
+    }
+
     public enum OpusPlayerState {
         NONE,
         PLAYING,
@@ -79,6 +83,7 @@ public class OpusController {
             }
             case OpusEvent.PLAY_PROGRESS_UPDATE: {
                 progressPercentage = (int) ((double) opusPlayer.getPosition() / opusPlayer.getDuration() * 100);
+                displayedProgress = Converters.convertNumberToTimeDisplay(progressPercentage);
                 break;
             }
         }

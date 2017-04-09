@@ -18,7 +18,6 @@ import java.io.IOException;
 
 import aw.com.controllers.OpusController;
 import aw.com.events.OpusControllerEvent;
-import aw.com.utils.Converters;
 import aw.com.utils.FileUtilities;
 import top.oply.opuslib.OpusEvent;
 
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case OpusEvent.PLAY_PROGRESS_UPDATE: {
                 progressBar.setProgress(opusController.getProgressPercentage());
-                currentPositionText.setText(Converters.convertNumberToTimeDisplay((int) opusController.getPlayer().getPosition()));
+                currentPositionText.setText(opusController.getDisplayedProgress());
                 break;
             }
         }
