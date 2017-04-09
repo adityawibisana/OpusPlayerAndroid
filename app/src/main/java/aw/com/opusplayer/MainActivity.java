@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 PlaylistClickedEvent playlistClickedEvent = new PlaylistClickedEvent();
                 playlistClickedEvent.setSelectedFilePath(String.valueOf(adapter.getItemAtPosition(position)));
                 EventBus.getDefault().post(playlistClickedEvent);
+
+                ((PlayListAdapter) adapter.getAdapter()).setSelectedIndex(position);
             }
         });
     }

@@ -26,12 +26,15 @@ public class PlayListAdapter extends BaseAdapter {
     private final Context context;
     private final LayoutInflater inflater;
     private List<File> playList;
+    private int selectedIndex;
 
     public PlayListAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(this.context);
         playList = new ArrayList<File>();
         EventBus.getDefault().register(this);
+
+        selectedIndex = -1;
     }
 
     @Override
@@ -50,6 +53,11 @@ public class PlayListAdapter extends BaseAdapter {
         return playList.get(position);
     }
 
+    public void setSelectedIndex(int index) {
+        selectedIndex = index;
+        notifyDataSetChanged();
+    }
+
     @Override
     public long getItemId(int position) {
         return 0;
@@ -65,6 +73,13 @@ public class PlayListAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
+        }
+
+        if (selectedIndex!=-1 && position==selectedIndex) {
+            holder.fileNameTextView.setTextColor(context.getResources().getColor(R.color.colorAccent));
+        }
+        else {
+            holder.fileNameTextView.setTextColor(context.getResources().getColor(R.color.textColor));
         }
 
         holder.fileNameTextView.setText(playList.get(position).getName());
