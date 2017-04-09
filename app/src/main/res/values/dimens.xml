@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_size">12dp</dimen>
-    <dimen name="margin_small_size">6dp</dimen> 
+    <dimen name="margin_small_size">6dp</dimen>
+    <dimen name="button_huge_size">72dp</dimen>
 </resources>
