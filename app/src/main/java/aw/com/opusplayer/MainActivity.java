@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case OpusEvent.PLAYING_FINISHED: {
                 playPauseButton.setImageResource(R.drawable.play);
+                progressBar.setProgress(0);
                 break;
             }
             case OpusEvent.PLAYING_PAUSED: {
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 opusController.getPlayer().resume();
                 break;
             }
-            case FINISHED: {
+            case FINISHED: { 
                 break;
             }
         }
