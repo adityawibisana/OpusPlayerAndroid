@@ -2,6 +2,7 @@ package aw.com.controllers;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -11,6 +12,7 @@ import aw.com.events.OpusControllerEvent;
 import aw.com.events.OpusMessageEvent;
 import aw.com.events.PlaylistClickedEvent;
 import aw.com.opusplayer.OpusReceiver;
+import aw.com.opusplayer.R;
 import aw.com.utils.Converters;
 import top.oply.opuslib.OpusEvent;
 import top.oply.opuslib.OpusPlayer;
@@ -20,6 +22,7 @@ import top.oply.opuslib.OpusPlayer;
  */
 
 public class OpusController {
+    private Context context;
     private OpusPlayer opusPlayer;
     private OpusPlayerState playerState;
     private int progressPercentage;
@@ -68,6 +71,7 @@ public class OpusController {
         filter.addAction(OpusEvent.ACTION_OPUS_UI_RECEIVER);
         context.registerReceiver(receiver, filter);
 
+        this.context = context;
         EventBus.getDefault().register(this);
     }
 
@@ -90,6 +94,10 @@ public class OpusController {
             case OpusEvent.PLAY_PROGRESS_UPDATE: {
                 progressPercentage = (int) ((double) opusPlayer.getPosition() / opusPlayer.getDuration() * 100);
                 displayedProgress = Converters.convertNumberToTimeDisplay((int) opusPlayer.getPosition());
+                break;
+            }
+            case OpusEvent.PLAYING_FAILED: {
+                Toast.makeText(context, context.getString(R.string.unable_play_opus_file), Toast.LENGTH_SHORT).show();
                 break;
             }
         }

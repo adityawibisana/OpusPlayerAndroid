@@ -2,4 +2,5 @@
     <string name="app_name">OpusPlayer</string>
     <string name="opus_sample1_path">/OpusPlayer/sample1.opus</string>
     <string name="opus_sample2_path">/OpusPlayer/sample2.opus</string>
+    <string name="unable_play_opus_file">"Unable to play the current .opus file"</string>
 </resources>
