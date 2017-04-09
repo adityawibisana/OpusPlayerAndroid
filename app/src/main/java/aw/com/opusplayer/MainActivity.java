@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
         copySampleFiles();
         InitUI();
         EventBus.getDefault().register(this);
-
-        OpusFileScanner scanner = new OpusFileScanner();
-        scanner.start();
     }
 
     private void InitUI() {
@@ -66,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         playList = (ListView) findViewById(R.id.playList);
-        playList.setAdapter(new PlayListAdapter(this));
     }
 
     private void copySampleFiles() {
@@ -138,7 +134,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onScanClick(View v) {
-
+        playList.setAdapter(new PlayListAdapter(this)); 
+        OpusFileScanner scanner = new OpusFileScanner();
+        scanner.start();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
