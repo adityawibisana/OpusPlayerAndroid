@@ -55,31 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void InitUI() {
         durationText = (TextView) findViewById(R.id.durationText);
         currentPositionText = (TextView) findViewById(R.id.currentPositionText);
-
         playPauseButton = (ImageButton) findViewById(R.id.playPauseButton);
-        playPauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                
-                switch (playerState) {
-                    case NONE: {
-                        opusPlayer.play(Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus");
-                        break;
-                    }
-                    case PLAYING: {
-                        opusPlayer.pause();
-                        break;
-                    }
-                    case PAUSED: {
-                        opusPlayer.resume();
-                        break;
-                    }
-                    case FINISHED: {
-                        break;
-                    }
-                }
-            }
-        });
 
         progressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         progressBar.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +122,26 @@ public class MainActivity extends AppCompatActivity {
                 double progress = (double) opusPlayer.getPosition() / opusPlayer.getDuration() * 100;
                 progressBar.setProgress((int) progress);
                 currentPositionText.setText(Converters.convertNumberToTimeDisplay((int) opusPlayer.getPosition()));
+                break;
+            }
+        }
+    }
+
+    public void onPlayPauseClick(View v) {
+        switch (playerState) {
+            case NONE: {
+                opusPlayer.play(Environment.getExternalStorageDirectory() + "/OpusPlayer/sample2.opus");
+                break;
+            }
+            case PLAYING: {
+                opusPlayer.pause();
+                break;
+            }
+            case PAUSED: {
+                opusPlayer.resume();
+                break;
+            }
+            case FINISHED: {
                 break;
             }
         }
