@@ -25,10 +25,10 @@ import top.oply.opuslib.OpusPlayer;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton playPauseButton;
-    ProgressBar progressBar;
-    TextView durationText;
-    TextView currentPositionText;
+    private ImageButton playPauseButton;
+    private ProgressBar progressBar;
+    private TextView durationText;
+    private TextView currentPositionText;
 
     OpusPlayer opusPlayer;
     OpusPlayerState playerState;
